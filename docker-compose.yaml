@@ -1,0 +1,17 @@
+services:
+    hotela-postgres:
+        image: "postgres"
+        container_name: "hotela-postgres-db-compose"
+        environment:
+            POSTGRES_USER: ${DB_USER}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: ${DB_NAME}
+        ports:
+            - "${DB_HOST_PORT}:5432"
+        volumes:
+            - "hotela_postgres_data_compose:/var/lib/postgresql/data"
+        restart: "unless-stopped"
+
+volumes:
+    hotela_postgres_data_compose:
+        driver: local
