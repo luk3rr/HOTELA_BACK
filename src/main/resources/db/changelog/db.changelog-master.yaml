@@ -1,0 +1,17 @@
+databaseChangeLog:
+    - include:
+          file: classpath:/db/changelog/sql/000-enable-extensions.sql
+    - include:
+          file: classpath:/db/changelog/sql/001-create-enum-types.sql
+    - include:
+          file: classpath:/db/changelog/sql/002-create-partner-hotel-tables.sql
+    - include:
+          file: classpath:/db/changelog/sql/003-create-customer-table.sql
+    - include:
+          file: classpath:/db/changelog/sql/004-create-auth-address-tables.sql
+    - include:
+          file: classpath:/db/changelog/sql/005-create-room-related-tables.sql
+    - include:
+          file: classpath:/db/changelog/sql/006-create-booking-payment-review-tables.sql
+    - include:
+          file: classpath:/db/changelog/sql/007-add-foreign-key-constraints.sql
