@@ -34,8 +34,6 @@ CREATE TABLE hotel (
     website VARCHAR(255),
     description TEXT,
     star_rating DECIMAL(2,1) NOT NULL DEFAULT 0.0,
-    standard_checkin_time TIME DEFAULT '14:00:00',
-    standard_checkout_time TIME DEFAULT '12:00:00',
     latitude DECIMAL(10,8) NOT NULL,
     longitude DECIMAL(11,8) NOT NULL,
     CONSTRAINT hotel_pkey PRIMARY KEY (id),

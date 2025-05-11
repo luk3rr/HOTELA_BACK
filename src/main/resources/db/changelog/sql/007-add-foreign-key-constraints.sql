@@ -135,4 +135,12 @@ CREATE INDEX IF NOT EXISTS idx_booking_room_id ON booking(room_id);
 CREATE INDEX IF NOT EXISTS idx_payment_booking_id ON payment(booking_id);
 CREATE INDEX IF NOT EXISTS idx_review_customer_id ON review(customer_id);
 CREATE INDEX IF NOT EXISTS idx_review_hotel_id ON review(hotel_id);
---rollback DROP INDEX IF EXISTS idx_hotel_partner_id; DROP INDEX IF EXISTS idx_room_hotel_id; ... (listar todos os drops)
+--rollback DROP INDEX IF EXISTS idx_hotel_partner_id; 
+--rollback DROP INDEX IF EXISTS idx_room_hotel_id; 
+--rollback DROP INDEX IF EXISTS idx_room_room_type_id; 
+--rollback DROP INDEX IF EXISTS idx_booking_customer_id; 
+--rollback DROP INDEX IF EXISTS idx_booking_hotel_id; 
+--rollback DROP INDEX IF EXISTS idx_booking_room_id; 
+--rollback DROP INDEX IF EXISTS idx_payment_booking_id; 
+--rollback DROP INDEX IF EXISTS idx_review_customer_id; 
+--rollback DROP INDEX IF EXISTS idx_review_hotel_id;

@@ -12,7 +12,6 @@ CREATE TYPE room_status AS ENUM (
     'AVAILABLE',
     'BOOKED',
     'MAINTENANCE',
-    'CLEANING',
     'UNAVAILABLE'
 );
 --rollback DROP TYPE room_status;

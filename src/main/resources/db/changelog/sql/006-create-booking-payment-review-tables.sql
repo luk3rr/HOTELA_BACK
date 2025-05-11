@@ -8,16 +8,13 @@ CREATE TABLE booking (
     room_id UUID NOT NULL, -- FK
     checkin_date DATE NOT NULL,
     checkout_date DATE NOT NULL,
-    number_of_adults INTEGER NOT NULL DEFAULT 1,
-    number_of_children INTEGER NOT NULL DEFAULT 0,
-    total_price DECIMAL(10,2) NOT NULL,
+    number_of_guests INTEGER NOT NULL DEFAULT 1,
     status booking_status NOT NULL DEFAULT 'PENDING_CONFIRMATION',
     special_requests TEXT,
     booked_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT booking_pkey PRIMARY KEY (id),
     CONSTRAINT check_booking_checkout_after_checkin CHECK (checkout_date > checkin_date),
-    CONSTRAINT check_booking_adults CHECK (number_of_adults >= 1),
-    CONSTRAINT check_booking_children CHECK (number_of_children >= 0)
+    CONSTRAINT check_booking_guests CHECK (number_of_guests >= 1)
 );
 --rollback DROP TABLE booking;
 
@@ -48,6 +45,7 @@ CREATE TABLE review (
     comment TEXT,
     is_anonymous BOOLEAN NOT NULL DEFAULT FALSE,
     reviewed_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT review_pkey PRIMARY KEY (id),
     CONSTRAINT review_booking_id_key UNIQUE (booking_id), -- Um review por reserva
     CONSTRAINT check_review_rating CHECK (rating >= 1 AND rating <= 5)
