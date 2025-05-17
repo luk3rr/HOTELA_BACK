@@ -47,7 +47,6 @@ CREATE TYPE booking_status AS ENUM (
     'CANCELLED_BY_HOTEL',
     'CHECKED_IN',
     'CHECKED_OUT',
-    'COMPLETED',
     'NO_SHOW'
 );
 --rollback DROP TYPE booking_status;
