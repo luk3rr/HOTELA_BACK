@@ -5,7 +5,7 @@ CREATE TABLE auth_credential (
     id UUID NOT NULL DEFAULT gen_random_uuid(),
     login_email VARCHAR(254) NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    user_type auth_user_type NOT NULL, -- Usando o tipo ENUM criado
+    user_type VARCHAR(50) NOT NULL, -- Usando o tipo ENUM criado
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     last_login_at TIMESTAMPTZ,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
