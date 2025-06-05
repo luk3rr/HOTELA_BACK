@@ -6,13 +6,13 @@ import com.hotela.domain.vo.Email;
 import com.hotela.domain.vo.Telephone;
 import com.hotela.model.enums.DocumentType;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import java.time.LocalDate;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -20,9 +20,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "customer", uniqueConstraints = {
-        @UniqueConstraint(name = "uq_customer_document", columnNames = { "document_id_type", "document_id_value" })
-})
+@Table(
+        name = "customer",
+        uniqueConstraints = {
+            @UniqueConstraint(
+                    name = "uq_customer_document",
+                    columnNames = {"document_id_type", "document_id_value"})
+        })
 public class Customer {
 
     @Id
@@ -31,11 +35,15 @@ public class Customer {
     private UUID id;
 
     /**
-     * @details Credencial de autenticação associada a este cliente.
-     *          A relação é OneToOne, e o carregamento é LAZY para otimização.
+     * @details Credencial de autenticação associada a este cliente. A relação é OneToOne, e o
+     *     carregamento é LAZY para otimização.
      */
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "auth_credential_id", referencedColumnName = "id", nullable = false, unique = true)
+    @JoinColumn(
+            name = "auth_credential_id",
+            referencedColumnName = "id",
+            nullable = false,
+            unique = true)
     private AuthCredential authCredential;
 
     @Column(name = "full_name", nullable = false, length = 255)
@@ -49,10 +57,9 @@ public class Customer {
     private Email contactEmailSecondary;
 
     /**
-     * @details Telefone principal de contato do cliente. Utiliza o Value Object
-     *          Telephone.
+     * @details Telefone principal de contato do cliente. Utiliza o Value Object Telephone.
      */
-    @Convert(converter = TelephoneConverter.class) 
+    @Convert(converter = TelephoneConverter.class)
     @Column(name = "primary_phone", nullable = false, length = 18)
     private Telephone primaryPhone;
 
@@ -60,29 +67,25 @@ public class Customer {
     private LocalDate birthDate;
 
     /**
-     * @details Tipo do documento de identificação (ex: CPF, PASSPORT).
-     *          Mapeado para o Enum DocumentType e persistido como String.
+     * @details Tipo do documento de identificação (ex: CPF, PASSPORT). Mapeado para o Enum
+     *     DocumentType e persistido como String.
      */
     @Enumerated(EnumType.STRING)
     @Column(name = "document_id_type", length = 50, nullable = false)
     private DocumentType documentIdType;
 
     /**
-     * @details O valor do documento de identificação (ex: número do CPF, número do
-     *          passaporte).
-     *          Mantido como String para flexibilidade de armazenamento de
-     *          diferentes tipos de documentos,
-     *          com a validação e o uso de Value Objects específicos (como Cpf)
-     *          ocorrendo na camada de serviço.
-     *          A coluna no banco é VARCHAR(50).
+     * @details O valor do documento de identificação (ex: número do CPF, número do passaporte).
+     *     Mantido como String para flexibilidade de armazenamento de diferentes tipos de
+     *     documentos, com a validação e o uso de Value Objects específicos (como Cpf) ocorrendo na
+     *     camada de serviço. A coluna no banco é VARCHAR(50).
      */
     @Column(name = "document_id_value", length = 50, nullable = false)
     private String documentIdValue;
 
     /**
-     * @details Endereço principal do cliente.
-     *          Pode ser nulo se o cliente não tiver um endereço principal
-     *          registrado.
+     * @details Endereço principal do cliente. Pode ser nulo se o cliente não tiver um endereço
+     *     principal registrado.
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "main_address_id")

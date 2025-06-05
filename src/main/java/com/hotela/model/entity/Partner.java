@@ -1,20 +1,20 @@
 package com.hotela.model.entity;
 
-import com.hotela.model.enums.PartnerStatus;
-import com.hotela.domain.vo.Email;
-import com.hotela.domain.vo.Telephone;
 import com.hotela.domain.converter.CnpjConverter;
 import com.hotela.domain.converter.EmailConverter;
 import com.hotela.domain.converter.TelephoneConverter;
 import com.hotela.domain.vo.Cnpj;
+import com.hotela.domain.vo.Email;
+import com.hotela.domain.vo.Telephone;
+import com.hotela.model.enums.PartnerStatus;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import java.time.LocalDate;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -31,7 +31,11 @@ public class Partner {
     private UUID id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "auth_credential_id", referencedColumnName = "id", nullable = false, unique = true)
+    @JoinColumn(
+            name = "auth_credential_id",
+            referencedColumnName = "id",
+            nullable = false,
+            unique = true)
     private AuthCredential authCredential;
 
     @Column(name = "company_name", nullable = false, length = 255)
@@ -53,8 +57,8 @@ public class Partner {
     private Telephone primaryPhone;
 
     /**
-     * @details Endereço principal do parceiro. Esta é uma relação um-para-um,
-     *          onde cada parceiro tem um endereço único e obrigatório.
+     * @details Endereço principal do parceiro. Esta é uma relação um-para-um, onde cada parceiro
+     *     tem um endereço único e obrigatório.
      */
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false, unique = true)

@@ -5,7 +5,8 @@ import java.util.regex.Pattern;
 
 public final class Cnpj {
 
-    private static final Pattern CNPJ_PATTERN = Pattern.compile("^(\\d{2}\\.?\\d{3}\\.?\\d{3}/?\\d{4}-?\\d{2})$");
+    private static final Pattern CNPJ_PATTERN =
+            Pattern.compile("^(\\d{2}\\.?\\d{3}\\.?\\d{3}/?\\d{4}-?\\d{2})$");
     private final String value;
 
     public Cnpj(String value) {
@@ -13,7 +14,8 @@ public final class Cnpj {
         String cleanedValue = value.replaceAll("[^0-9]", "");
 
         if (cleanedValue.length() != 14) {
-            throw new IllegalArgumentException("Invalid CNPJ length: " + value + " (cleaned: " + cleanedValue + ")");
+            throw new IllegalArgumentException(
+                    "Invalid CNPJ length: " + value + " (cleaned: " + cleanedValue + ")");
         }
         if (!CNPJ_PATTERN.matcher(value).matches() && !cleanedValue.matches("^\\d{14}$")) {
             throw new IllegalArgumentException("Invalid CNPJ format: " + value);
@@ -33,7 +35,8 @@ public final class Cnpj {
         if (value == null || value.length() != 14) {
             return value;
         }
-        return String.format("%s.%s.%s/%s-%s",
+        return String.format(
+                "%s.%s.%s/%s-%s",
                 value.substring(0, 2),
                 value.substring(2, 5),
                 value.substring(5, 8),
@@ -43,10 +46,8 @@ public final class Cnpj {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Cnpj cnpj = (Cnpj) o;
         return Objects.equals(value, cnpj.value);
     }
@@ -62,10 +63,9 @@ public final class Cnpj {
     }
 
     /**
-     * 
      * @param cnpj
-     * @details Função que realiza a validação de um Cnpj baseado no algoritmo dos
-     *          digitos verificadores
+     * @details Função que realiza a validação de um Cnpj baseado no algoritmo dos digitos
+     *     verificadores
      * @return booleano que diz se é o ou não válido
      */
     private static boolean isValidCnpj(String cnpj) {
@@ -74,8 +74,8 @@ public final class Cnpj {
         }
 
         try {
-            int[] weights1 = { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
-            int[] weights2 = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] weights1 = {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+            int[] weights2 = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
 
             int sum1 = 0;
             for (int i = 0; i < 12; i++) {

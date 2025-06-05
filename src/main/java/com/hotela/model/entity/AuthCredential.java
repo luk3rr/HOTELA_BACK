@@ -1,23 +1,20 @@
 package com.hotela.model.entity;
 
-import java.time.OffsetDateTime;
-import java.util.UUID;
-
 import com.hotela.domain.converter.EmailConverter;
 import com.hotela.domain.vo.Email;
 import com.hotela.model.enums.AuthUserType;
-
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import java.time.OffsetDateTime;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

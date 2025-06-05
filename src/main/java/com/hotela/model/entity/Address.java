@@ -1,13 +1,12 @@
 package com.hotela.model.entity;
 
-import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -55,5 +54,4 @@ public class Address {
     @Builder.Default
     @Column(name = "country_code", nullable = false, length = 2)
     private String countryCode = "BR";
-
 }

@@ -1,6 +1,6 @@
 package com.hotela.domain.converter;
 
-import com.hotela.domain.vo.Telephone; 
+import com.hotela.domain.vo.Telephone;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

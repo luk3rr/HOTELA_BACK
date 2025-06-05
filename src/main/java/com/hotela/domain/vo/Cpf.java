@@ -5,7 +5,8 @@ import java.util.regex.Pattern;
 
 public final class Cpf {
 
-    private static final Pattern CPF_PATTERN = Pattern.compile("^(\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2})$");
+    private static final Pattern CPF_PATTERN =
+            Pattern.compile("^(\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2})$");
     private final String value;
 
     public Cpf(String value) {
@@ -13,7 +14,8 @@ public final class Cpf {
         String cleanedValue = value.replaceAll("[^0-9]", "");
 
         if (cleanedValue.length() != 11) {
-            throw new IllegalArgumentException("Invalid CPF length: " + value + " (cleaned: " + cleanedValue + ")");
+            throw new IllegalArgumentException(
+                    "Invalid CPF length: " + value + " (cleaned: " + cleanedValue + ")");
         }
         if (!CPF_PATTERN.matcher(value).matches() && !cleanedValue.matches("^\\d{11}$")) {
             throw new IllegalArgumentException("Invalid CPF format: " + value);
@@ -33,7 +35,8 @@ public final class Cpf {
         if (value == null || value.length() != 11) {
             return value;
         }
-        return String.format("%s.%s.%s-%s",
+        return String.format(
+                "%s.%s.%s-%s",
                 value.substring(0, 3),
                 value.substring(3, 6),
                 value.substring(6, 9),
@@ -42,10 +45,8 @@ public final class Cpf {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Cpf cpf = (Cpf) o;
         return Objects.equals(value, cpf.value);
     }
