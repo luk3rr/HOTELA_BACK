@@ -12,7 +12,7 @@ ALTER TABLE partner
     ADD CONSTRAINT fk_partner_address
     FOREIGN KEY (address_id)
     REFERENCES address(id)
-    ON DELETE SET NULL; -- Exemplo: se o endereço for deletado, o address_id do partner fica NULL
+    ON DELETE RESTRICT;
 --rollback ALTER TABLE partner DROP CONSTRAINT fk_partner_address;
 
 --changeset leonux_hotela:add-fk-hotel-partner comments:"Adiciona FK de hotel para partner"

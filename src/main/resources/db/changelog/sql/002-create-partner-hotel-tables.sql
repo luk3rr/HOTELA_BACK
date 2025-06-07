@@ -7,14 +7,14 @@ CREATE TABLE partner (
     company_name VARCHAR(255) NOT NULL,
     legal_name VARCHAR(255),
     cnpj VARCHAR(18) NOT NULL,
-    primary_contact_email VARCHAR(254),
+    primary_contact_email VARCHAR(254) NOT NULL UNIQUE,
     primary_phone VARCHAR(18) NOT NULL,
-    address_id UUID, -- FK será adicionada depois
+    address_id UUID NOT NULL UNIQUE, -- FK será adicionada depois
     representative_name VARCHAR(255),
     representative_email VARCHAR(254),
     representative_phone VARCHAR(18),
     contract_signed_at DATE,
-    status partner_status NOT NULL DEFAULT 'ACTIVE',
+    status VARCHAR(50) NOT NULL DEFAULT 'ACTIVE',
     notes TEXT,
     CONSTRAINT partner_pkey PRIMARY KEY (id),
     CONSTRAINT partner_cnpj_key UNIQUE (cnpj),
@@ -30,7 +30,7 @@ CREATE TABLE hotel (
     name VARCHAR(255) NOT NULL,
     address_id UUID NOT NULL, -- FK será adicionada depois
     main_phone VARCHAR(18) NOT NULL,
-    main_email VARCHAR(254),
+    main_email VARCHAR(254) NOT NULL,
     website VARCHAR(255),
     description TEXT,
     star_rating DECIMAL(2,1) NOT NULL DEFAULT 0.0,
