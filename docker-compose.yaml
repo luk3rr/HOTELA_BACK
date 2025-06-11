@@ -12,6 +12,22 @@ services:
             - "hotela_postgres_data_compose:/var/lib/postgresql/data"
         restart: "unless-stopped"
 
+    hotela-backend:
+        build: .
+        container_name: "hotela-backend-compose"
+        ports:
+            - "8080:8080"
+        environment:
+            SPRING_DATASOURCE_URL: jdbc:postgresql://hotela-postgres:5432/${DB_NAME}
+            SPRING_DATASOURCE_USERNAME: ${DB_USER}
+            SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+            SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+            APP_JWT_SECRET: ${APP_JWT_SECRET}
+            APP_JWT_EXPIRATION_MS: ${APP_JWT_EXPIRATION_MS}
+        depends_on:
+            - hotela-postgres
+        restart: "unless-stopped"
+
 volumes:
     hotela_postgres_data_compose:
         driver: local
