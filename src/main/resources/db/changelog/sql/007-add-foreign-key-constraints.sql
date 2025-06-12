@@ -39,14 +39,6 @@ ALTER TABLE room
     ON DELETE CASCADE;
 --rollback ALTER TABLE room DROP CONSTRAINT fk_room_hotel;
 
---changeset leonux_hotela:add-fk-room-room_type comments:"Adiciona FK de room para room_type"
-ALTER TABLE room
-    ADD CONSTRAINT fk_room_room_type
-    FOREIGN KEY (room_type_id)
-    REFERENCES room_type(id)
-    ON DELETE RESTRICT; -- Não deletar um tipo de quarto se quartos o usam
---rollback ALTER TABLE room DROP CONSTRAINT fk_room_room_type;
-
 --changeset leonux_hotela:add-unique-room_hotel_id_room_number comments:"Adiciona restrição UNIQUE para hotel_id e room_number na tabela room"
 ALTER TABLE room
     ADD CONSTRAINT uq_room_hotel_id_room_number
@@ -128,7 +120,6 @@ ALTER TABLE review
 --changeset leonux_hotela:add-indexes-fks comments:"Adiciona índices em colunas de chave estrangeira frequentemente usadas"
 CREATE INDEX IF NOT EXISTS idx_hotel_partner_id ON hotel(partner_id);
 CREATE INDEX IF NOT EXISTS idx_room_hotel_id ON room(hotel_id);
-CREATE INDEX IF NOT EXISTS idx_room_room_type_id ON room(room_type_id);
 CREATE INDEX IF NOT EXISTS idx_booking_customer_id ON booking(customer_id);
 CREATE INDEX IF NOT EXISTS idx_booking_hotel_id ON booking(hotel_id);
 CREATE INDEX IF NOT EXISTS idx_booking_room_id ON booking(room_id);
@@ -137,7 +128,6 @@ CREATE INDEX IF NOT EXISTS idx_review_customer_id ON review(customer_id);
 CREATE INDEX IF NOT EXISTS idx_review_hotel_id ON review(hotel_id);
 --rollback DROP INDEX IF EXISTS idx_hotel_partner_id; 
 --rollback DROP INDEX IF EXISTS idx_room_hotel_id; 
---rollback DROP INDEX IF EXISTS idx_room_room_type_id; 
 --rollback DROP INDEX IF EXISTS idx_booking_customer_id; 
 --rollback DROP INDEX IF EXISTS idx_booking_hotel_id; 
 --rollback DROP INDEX IF EXISTS idx_booking_room_id; 
