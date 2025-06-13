@@ -1,54 +1,8 @@
-Enum partner_status {
-  ACTIVE
-  INACTIVE
-}
-
-Enum room_status {
-  AVAILABLE [note: 'Disponível para reserva']
-  BOOKED [note: 'Reservado e ocupado ou aguardando check-in']
-  MAINTENANCE [note: 'Em manutenção, indisponível']
-  UNAVAILABLE [note: 'Indisponível por outros motivos']
-}
-
-Enum payment_method {
-  CREDIT_CARD
-  DEBIT_CARD
-  PIX
-  BANK_TRANSFER
-  PAYPAL
-  CASH
-  VOUCHER
-}
-
-Enum payment_status {
-  PENDING   [note: 'Aguardando processamento ou confirmação']
-  PAID      [note: 'Pagamento confirmado com sucesso']
-  FAILED    [note: 'Pagamento falhou']
-  REFUNDED  [note: 'Pagamento totalmente reembolsado']
-  PARTIALLY_REFUNDED [note: 'Pagamento parcialmente reembolsado']
-  CANCELLED [note: 'Pagamento cancelado antes da conclusão efetiva']
-}
-
-Enum booking_status {
-  PENDING_CONFIRMATION [note: 'Reserva aguardando confirmação (ex: pagamento, aprovação)']
-  CONFIRMED            [note: 'Reserva confirmada e garantida']
-  CANCELLED_BY_CUSTOMER
-  CANCELLED_BY_HOTEL
-  CHECKED_IN           [note: 'Hóspede realizou check-in']
-  CHECKED_OUT          [note: 'Hóspede realizou check-out']
-  NO_SHOW              [note: 'Hóspede não compareceu para o check-in']
-}
-
-Enum auth_user_type {
-  CUSTOMER
-  PARTNER
-}
-
 Table auth_credential {
   id uuid [pk, default: `gen_random_uuid()`, note: 'Chave primária única para cada credencial']
   login_email varchar(254) [unique, not null, note: 'Email de login, único globalmente. Max 254 para compatibilidade.']
   password_hash varchar(255) [not null, note: 'Hash da senha (ex: bcrypt)']
-  user_type auth_user_type [not null, note: 'Indica se a credencial é de um CUSTOMER ou PARTNER']
+  user_type VARCHAR(255) [not null]
   is_active boolean [not null, default: true, note: 'Se a conta de login está ativa']
   last_login_at timestamptz [note: 'Atualizado programaticamente no login bem-sucedido']
   created_at timestamptz [not null, default: `now()`, note: 'Quando a credencial foi criada']
@@ -80,7 +34,7 @@ Table partner {
   representative_email varchar(254) [note: 'Email do representante']
   representative_phone varchar(18) [note: 'Telefone do representante']
   contract_signed_at date [note: 'Data em que o contrato foi assinado']
-  status partner_status [not null, default: 'ACTIVE']
+  status VARCHAR(255) [not null]
   notes text
 }
 
@@ -101,21 +55,16 @@ Table hotel {
   }
 }
 
-Table room_type {
-  id uuid [pk, default: `gen_random_uuid()`]
-  name varchar(100) [unique, not null, note: 'Ex: Standard Solteiro, Casal Deluxe, Suíte Presidencial Vista Mar']
-  description text
-}
 
 Table room {
   id uuid [pk, default: `gen_random_uuid()`]
   hotel_id uuid [not null, ref: > hotel.id]
-  room_type_id uuid [not null, ref: > room_type.id]
+  room_type VARCHAR(255) [not null]
   room_number varchar(10) [not null, note: 'Número ou identificador do quarto no hotel (ex: 101, 203A, "Suíte Lagoa")']
   floor int [note: 'Andar onde o quarto está localizado, se aplicável']
   price_per_night decimal(10,2) [not null, note: 'Preço base da diária para este quarto']
   capacity int [not null, note: 'Capacidade máxima de hóspedes para este quarto específico']
-  status room_status [not null, default: 'AVAILABLE']
+  status VARCHAR(255) [not null, default: 'AVAILABLE']
   description text [note: 'Descrição ou características específicas deste quarto individual']
   indexes {
     (hotel_id, room_number) [unique, note: 'Garante que o número do quarto é único dentro de cada hotel']
@@ -145,7 +94,7 @@ Table booking {
   checkin_date date [not null, note: 'Data de entrada no hotel']
   checkout_date date [not null, note: 'Data de saída do hotel. Implementar CHECK (checkout_date > checkin_date)']
   number_of_guests int [not null, default: 1, note: 'Número total de hóspedes. Implementar CHECK (number_of_guests >= 1)']
-  status booking_status [not null, default: 'PENDING_CONFIRMATION']
+  status VARCHAR(255) [not null, default: 'PENDING_CONFIRMATION']
   special_requests text [note: 'Pedidos especiais do hóspede para esta reserva']
   booked_at timestamptz [not null, default: `now()`, note: 'Timestamp de quando a reserva foi criada. Serve como created_at.']
   indexes {
@@ -160,8 +109,8 @@ Table payment {
   booking_id uuid [not null, ref: > booking.id]
   external_transaction_id varchar(100) [unique, not null, note: 'ID da transação fornecido pelo gateway de pagamento']
   amount_paid decimal(10,2) [not null]
-  payment_method payment_method [not null]
-  status payment_status [not null, default: 'PENDING']
+  payment_method VARCHAR(255) [not null]
+  status VARCHAR(255) [not null, default: 'PENDING']
   created_at timestamptz [not null, default: `now()`, note: 'Quando este registro de tentativa/transação de pagamento foi criado no sistema']
   processed_at timestamptz [note: 'Momento em que o pagamento foi efetivamente confirmado/falhou/reembolsado pelo gateway']
   payment_details jsonb [note: 'JSON para guardar detalhes adicionais do gateway, como parcelas, nsu, etc.']

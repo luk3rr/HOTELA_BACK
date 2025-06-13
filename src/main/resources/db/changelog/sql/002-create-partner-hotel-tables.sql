@@ -14,7 +14,7 @@ CREATE TABLE partner (
     representative_email VARCHAR(254),
     representative_phone VARCHAR(18),
     contract_signed_at DATE,
-    status VARCHAR(50) NOT NULL DEFAULT 'ACTIVE',
+    status VARCHAR(255) NOT NULL DEFAULT 'ACTIVE',
     notes TEXT,
     CONSTRAINT partner_pkey PRIMARY KEY (id),
     CONSTRAINT partner_cnpj_key UNIQUE (cnpj),

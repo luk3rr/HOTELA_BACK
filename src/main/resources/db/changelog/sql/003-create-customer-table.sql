@@ -8,8 +8,8 @@ CREATE TABLE customer (
     contact_email_secondary VARCHAR(254),
     primary_phone VARCHAR(18) NOT NULL,
     birth_date DATE NOT NULL,
-    document_id_type VARCHAR(50) NOT NULL,
-    document_id_value VARCHAR(50) NOT NULL,
+    document_id_type VARCHAR(255) NOT NULL,
+    document_id_value VARCHAR(255) NOT NULL,
     main_address_id UUID, -- FK será adicionada depois
     CONSTRAINT customer_pkey PRIMARY KEY (id),
     CONSTRAINT customer_contact_email_secondary_key UNIQUE (contact_email_secondary),
