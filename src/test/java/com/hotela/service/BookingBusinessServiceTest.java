@@ -1,15 +1,14 @@
 package com.hotela.service;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.hotela.model.enums.BookingStatus;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class BookingBusinessServiceTest {
@@ -68,7 +67,8 @@ class BookingBusinessServiceTest {
         LocalDate checkout = LocalDate.of(2024, 1, 4); // 3 nights
 
         // When
-        BigDecimal total = bookingBusinessService.calculateTotalPrice(pricePerNight, checkin, checkout);
+        BigDecimal total =
+                bookingBusinessService.calculateTotalPrice(pricePerNight, checkin, checkout);
 
         // Then
         assertEquals(BigDecimal.valueOf(300.00), total);
@@ -134,7 +134,9 @@ class BookingBusinessServiceTest {
         LocalDate checkinDate = LocalDate.now().plusDays(10); // 10 dias de antecedência
 
         // When
-        BigDecimal refund = bookingBusinessService.calculateRefundAmount(totalAmount, cancellationDate, checkinDate);
+        BigDecimal refund =
+                bookingBusinessService.calculateRefundAmount(
+                        totalAmount, cancellationDate, checkinDate);
 
         // Then
         assertEquals(totalAmount, refund);
@@ -148,9 +150,11 @@ class BookingBusinessServiceTest {
         LocalDate checkinDate = LocalDate.now().plusDays(5); // 5 dias de antecedência
 
         // When
-        BigDecimal refund = bookingBusinessService.calculateRefundAmount(totalAmount, cancellationDate, checkinDate);
+        BigDecimal refund =
+                bookingBusinessService.calculateRefundAmount(
+                        totalAmount, cancellationDate, checkinDate);
 
         // Then
-        assertEquals(BigDecimal.valueOf(250.00), refund); // 50% do valor
+        assertEquals(0, BigDecimal.valueOf(250.00).compareTo(refund)); // 50% do valor
     }
 }

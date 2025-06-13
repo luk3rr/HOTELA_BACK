@@ -1,13 +1,12 @@
 package com.hotela.service;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.math.BigDecimal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.math.BigDecimal;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class HotelBusinessServiceTest {
@@ -75,7 +74,8 @@ class HotelBusinessServiceTest {
         int newRating = 5;
 
         // When
-        BigDecimal newAverage = hotelBusinessService.calculateAverageRating(currentRating, totalReviews, newRating);
+        BigDecimal newAverage =
+                hotelBusinessService.calculateAverageRating(currentRating, totalReviews, newRating);
 
         // Then
         assertEquals(BigDecimal.valueOf(4.09), newAverage);
@@ -83,7 +83,7 @@ class HotelBusinessServiceTest {
 
     @Test
     void shouldApplyWeekendPriceIncrease() {
-        // Given
+        // Given]
         BigDecimal basePrice = BigDecimal.valueOf(100.00);
         boolean isWeekend = true;
 
@@ -91,6 +91,6 @@ class HotelBusinessServiceTest {
         BigDecimal weekendPrice = hotelBusinessService.calculateWeekendPrice(basePrice, isWeekend);
 
         // Then
-        assertEquals(BigDecimal.valueOf(120.00), weekendPrice);
+        assertEquals(0, BigDecimal.valueOf(120.00).compareTo(weekendPrice));
     }
 }
