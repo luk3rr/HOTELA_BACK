@@ -65,10 +65,3 @@ tasks.test {
         showCauses = true
     }
 }
-
-spotless {
-	java {
-		googleJavaFormat().aosp()
-		target("src/**/*.java")
-	}
-}

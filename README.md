@@ -51,6 +51,12 @@ Você pode rodar o projeto de duas maneiras: utilizando Docker (recomendado para
 
 Este é o método mais simples e não exige que você instale o Java ou o Gradle em sua máquina, apenas o Docker.
 
+**Antes de iniciar o container, faça o build da aplicação:**
+
+```bash
+./gradlew build
+```
+
 **Inicie o container:**
 
 ```bash
@@ -62,6 +68,7 @@ docker-compose up -d
 ```bash
 docker-compose down
 ```
+
 #### Opção B: Rodando com Gradle 🐘
 
 Certifique-se de ter o JDK 21 configurado corretamente em seu sistema, além do banco de dados PostgreSQL instalado e em execução.
@@ -82,6 +89,19 @@ gradlew.bat bootRun
 
 A aplicação estará disponível em [http://localhost:8080](http://localhost:8080).
 
+---
+
+### 🔧 Rodando aplicação Spring
+
+Para rodar a aplicação localmente:
+
+1. Configure o banco de dados em `src/main/resources/application.properties`.
+2. Execute:
+
+    No Linux:
+    ```bash
+    ./gradlew bootRun
+    ```
 ---
 
 ## 🧪 Executando os Testes
