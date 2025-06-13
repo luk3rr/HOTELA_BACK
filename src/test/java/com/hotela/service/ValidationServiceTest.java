@@ -20,58 +20,35 @@ class ValidationServiceTest {
 
     @Test
     void shouldReturnTrueForValidEmail() {
-        // Given
         String validEmail = "user@example.com";
-
-        // When
         boolean result = validationService.isValidEmail(validEmail);
-
-        // Then
         assertTrue(result);
     }
 
     @Test
     void shouldReturnFalseForInvalidEmail() {
-        // Given
         String invalidEmail = "invalid-email";
-
-        // When
         boolean result = validationService.isValidEmail(invalidEmail);
-
-        // Then
         assertFalse(result);
     }
 
     @Test
     void shouldReturnFalseForNullEmail() {
-        // When
         boolean result = validationService.isValidEmail(null);
-
-        // Then
         assertFalse(result);
     }
 
     @Test
     void shouldReturnTrueForAdultAge() {
-        // Given
         LocalDate birthDate = LocalDate.now().minusYears(25);
-
-        // When
         boolean result = validationService.isAdult(birthDate);
-
-        // Then
         assertTrue(result);
     }
 
     @Test
     void shouldReturnFalseForMinorAge() {
-        // Given
         LocalDate birthDate = LocalDate.now().minusYears(15);
-
-        // When
         boolean result = validationService.isAdult(birthDate);
-
-        // Then
         assertFalse(result);
     }
 }
