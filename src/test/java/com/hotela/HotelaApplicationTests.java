@@ -1,8 +1,17 @@
 package com.hotela;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-@ActiveProfiles("test")
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
-class HotelaApplicationTests {}
+@ActiveProfiles("test")
+class HotelaApplicationTests {
+
+    @Test
+    void simpleTest() {
+        assertEquals(1, 1);
+    }
+}
