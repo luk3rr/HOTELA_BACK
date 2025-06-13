@@ -8,32 +8,32 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Repository interface for accessing Review entities from the database.
+ * Interface de repositório para acessar entidades Review no banco de dados.
  */
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, UUID> {
 
     /**
-     * Finds all reviews for a given hotel by its ID.
+     * Busca todas as avaliações de um determinado hotel pelo seu ID.
      *
-     * @param hotelId the UUID of the hotel
-     * @return a list of reviews for the specified hotel
+     * @param hotelId o UUID do hotel
+     * @return uma lista de avaliações para o hotel especificado
      */
     List<Review> findByHotelId(UUID hotelId);
 
     /**
-     * Finds all reviews made by a specific customer.
+     * Busca todas as avaliações feitas por um cliente específico.
      *
-     * @param customerId the UUID of the customer
-     * @return a list of reviews made by the specified customer
+     * @param customerId o UUID do cliente
+     * @return uma lista de avaliações feitas pelo cliente especificado
      */
     List<Review> findByCustomerId(UUID customerId);
 
     /**
-     * Finds a review associated with a specific booking.
+     * Busca uma avaliação associada a uma reserva específica.
      *
-     * @param bookingId the UUID of the booking
-     * @return an Optional containing the review if found, or empty otherwise
+     * @param bookingId o UUID da reserva
+     * @return um Optional contendo a avaliação, se encontrada, ou vazio caso contrário
      */
     Optional<Review> findByBookingId(UUID bookingId);
 }

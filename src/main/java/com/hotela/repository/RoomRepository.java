@@ -10,34 +10,34 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Repository interface for Room entity.
- * Provides methods to perform CRUD operations and custom queries on Room data.
+ * Interface de repositório para a entidade Room.
+ * Fornece métodos para realizar operações CRUD e consultas personalizadas em dados de Room.
  */
 @Repository
 public interface RoomRepository extends JpaRepository<Room, UUID> {
 
     /**
-     * Finds a room by hotel ID and room number.
+     * Busca um quarto pelo ID do hotel e número do quarto.
      *
-     * @param hotelId the UUID of the hotel
-     * @param roomNumber the room number
-     * @return an Optional containing the Room if found, or empty otherwise
+     * @param hotelId o UUID do hotel
+     * @param roomNumber o número do quarto
+     * @return um Optional contendo o Room se encontrado, ou vazio caso contrário
      */
     Optional<Room> findByHotelIdAndRoomNumber(UUID hotelId, String roomNumber);
 
     /**
-     * Finds all rooms belonging to a specific hotel.
+     * Busca todos os quartos pertencentes a um hotel específico.
      *
-     * @param hotelId the UUID of the hotel
-     * @return a list of Room entities
+     * @param hotelId o UUID do hotel
+     * @return uma lista de entidades Room
      */
     List<Room> findByHotelId(UUID hotelId);
 
     /**
-     * Finds all rooms of a specific room type.
+     * Busca todos os quartos de um tipo específico.
      *
-     * @param roomType the type of the room
-     * @return a list of Room entities
+     * @param roomType o tipo do quarto
+     * @return uma lista de entidades Room
      */
     List<Room> findByRoomType(RoomType roomType);
 }

@@ -7,25 +7,25 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Repository interface for Payment entity.
- * Provides CRUD operations and custom queries for Payment.
+ * Interface de repositório para a entidade Payment.
+ * Fornece operações CRUD e consultas personalizadas para Payment.
  */
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, UUID> {
 
     /**
-     * Finds a Payment by its associated Booking ID.
+     * Busca um pagamento pelo ID da reserva associada.
      *
-     * @param bookingId the UUID of the booking
-     * @return an Optional containing the Payment if found, or empty otherwise
+     * @param bookingId o UUID da reserva
+     * @return um Optional contendo o pagamento, se encontrado, ou vazio caso contrário
      */
     Optional<Payment> findByBookingId(UUID bookingId);
 
     /**
-     * Finds a Payment by its external transaction ID.
+     * Busca um pagamento pelo seu ID de transação externa.
      *
-     * @param externalTransactionId the external transaction identifier
-     * @return an Optional containing the Payment if found, or empty otherwise
+     * @param externalTransactionId o identificador externo da transação
+     * @return um Optional contendo o pagamento, se encontrado, ou vazio caso contrário
      */
     Optional<Payment> findByExternalTransactionId(String externalTransactionId);
 }

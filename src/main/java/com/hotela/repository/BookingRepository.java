@@ -9,38 +9,38 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Repository interface for Booking entity.
- * Provides methods to perform CRUD operations and custom queries on Booking data.
+ * Interface de repositório para a entidade Booking.
+ * Fornece métodos para realizar operações CRUD e consultas personalizadas em dados de Booking.
  */
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
     /**
-     * Finds all bookings for a specific customer.
-     * @param customerId the UUID of the customer
-     * @return list of bookings for the customer
+     * Busca todas as reservas de um cliente específico.
+     * @param customerId o UUID do cliente
+     * @return lista de reservas do cliente
      */
     List<Booking> findByCustomerId(UUID customerId);
 
     /**
-     * Finds all bookings for a specific hotel.
-     * @param hotelId the UUID of the hotel
-     * @return list of bookings for the hotel
+     * Busca todas as reservas de um hotel específico.
+     * @param hotelId o UUID do hotel
+     * @return lista de reservas do hotel
      */
     List<Booking> findByHotelId(UUID hotelId);
 
     /**
-     * Finds all bookings for a specific room.
-     * @param roomId the UUID of the room
-     * @return list of bookings for the room
+     * Busca todas as reservas de um quarto específico.
+     * @param roomId o UUID do quarto
+     * @return lista de reservas do quarto
      */
     List<Booking> findByRoomId(UUID roomId);
 
     /**
-     * Finds a booking by its ID and customer ID.
-     * @param bookingId the UUID of the booking
-     * @param customerId the UUID of the customer
-     * @return an Optional containing the booking if found, or empty otherwise
+     * Busca uma reserva pelo seu ID e pelo ID do cliente.
+     * @param bookingId o UUID da reserva
+     * @param customerId o UUID do cliente
+     * @return um Optional contendo a reserva se encontrada, ou vazio caso contrário
      */
     Optional<Booking> findByIdAndCustomerId(UUID bookingId, UUID customerId);
 }
