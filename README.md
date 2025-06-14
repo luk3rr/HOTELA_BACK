@@ -2,6 +2,11 @@
 
 Bem-vindo ao projeto do Sistema de Hotéis! Esta é uma API RESTful construída com as tecnologias mais modernas para gerenciar as operações de hotéis de forma eficiente.
 
+## 👥 Integrantes
+- Lucas de Oliveira Araújo
+- Leonardo Magalhães do Vale
+- Thiago Silva Santos
+
 ## ✨ Funcionalidades
 
 * **Gerenciamento de Hóspedes:** Cadastro, consulta e atualização de informações de hóspedes.
