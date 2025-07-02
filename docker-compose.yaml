@@ -1,33 +1,22 @@
 services:
-    hotela-postgres:
-        image: "postgres"
-        container_name: "hotela-postgres-db-compose"
-        environment:
-            POSTGRES_USER: ${DB_USER}
-            POSTGRES_PASSWORD: ${DB_PASSWORD}
-            POSTGRES_DB: ${DB_NAME}
-        ports:
-            - "${DB_HOST_PORT}:5432"
-        volumes:
-            - "hotela_postgres_data_compose:/var/lib/postgresql/data"
-        restart: "unless-stopped"
+  postgres:
+    image: postgres:latest
+    container_name: hotela-postgres
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: hotela
+      TZ: "UTC"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - hotela-network
 
-    hotela-backend:
-        build: .
-        container_name: "hotela-backend-compose"
-        ports:
-            - "8080:8080"
-        environment:
-            SPRING_DATASOURCE_URL: jdbc:postgresql://hotela-postgres:5432/${DB_NAME}
-            SPRING_DATASOURCE_USERNAME: ${DB_USER}
-            SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
-            SPRING_JPA_HIBERNATE_DDL_AUTO: validate
-            APP_JWT_SECRET: ${APP_JWT_SECRET}
-            APP_JWT_EXPIRATION_MS: ${APP_JWT_EXPIRATION_MS}
-        depends_on:
-            - hotela-postgres
-        restart: "unless-stopped"
+networks:
+  hotela-network:
+    driver: bridge
 
 volumes:
-    hotela_postgres_data_compose:
-        driver: local
+  pgdata:
