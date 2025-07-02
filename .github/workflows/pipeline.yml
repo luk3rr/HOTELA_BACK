@@ -30,4 +30,4 @@ jobs:
               run: ./gradlew spotlessCheck
 
             - name: Run tests with gradle
-              run: ./gradlew test jacocoTestReport
+              run: ./gradlew test
