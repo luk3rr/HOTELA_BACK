@@ -78,7 +78,11 @@ tasks.withType<KotlinCompile>().configureEach {
 }
 
 tasks.named<Test>("test") {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        if (project.hasProperty("excludeTags")) {
+            excludeTags(project.property("excludeTags") as String)
+        }
+    }
 }
 
 tasks.withType<JacocoReport> {

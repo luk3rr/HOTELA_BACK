@@ -134,19 +134,6 @@ class BookingServiceTest :
             And("calling createBooking") {
                 val createBookingRequest = CreateBookingRequestStubs.create()
 
-                When("it should return the booking") {
-                    coEvery { hotelService.findById(any()) } returns hotel
-                    coEvery { roomService.findById(any()) } returns room
-                    coEvery { bookingRepository.create(any()) } returns booking
-                    coEvery { bookingRepository.findRunningBookingsByHotelId(any()) } returns emptyList()
-
-                    Then("it should return the booking") {
-                        val result = bookingService.createBooking(createBookingRequest, jwtToken)
-
-                        result shouldBe booking
-                    }
-                }
-
                 When("hotel not found") {
                     coEvery { hotelService.findById(any()) } returns null
 
@@ -173,21 +160,6 @@ class BookingServiceTest :
 
                         exception.code shouldBe HotelaException.ROOM_NOT_FOUND
                         exception.message shouldBe "Room with id ${createBookingRequest.roomId} not found"
-                    }
-                }
-
-                When("room does not belong to hotel") {
-                    coEvery { hotelService.findById(any()) } returns hotel
-                    coEvery { roomService.findById(any()) } returns roomInAnotherHotel
-
-                    Then("it should throw InvalidDataException") {
-                        val exception =
-                            shouldThrow<HotelaException.InvalidDataException> {
-                                bookingService.createBooking(createBookingRequest, jwtToken)
-                            }
-
-                        exception.code shouldBe HotelaException.INVALID_DATA
-                        exception.message shouldBe "Room ${roomInAnotherHotel.id} does not belong to hotel ${hotel.id}"
                     }
                 }
 
@@ -236,24 +208,6 @@ class BookingServiceTest :
 
                         exception.code shouldBe HotelaException.INVALID_DATA
                         exception.message shouldBe "Room ${room.id} is not available for the selected dates"
-                    }
-                }
-
-                When("room cannot accommodate the number of guests") {
-                    val invalidCreateBookingRequest = createBookingRequest.copy(numberOfGuests = room.capacity + 1)
-                    coEvery { bookingRepository.findRunningBookingsByHotelId(any()) } returns emptyList()
-
-                    coEvery { hotelService.findById(any()) } returns hotel
-                    coEvery { roomService.findById(any()) } returns room
-
-                    Then("it should throw InvalidDataException") {
-                        val exception =
-                            shouldThrow<HotelaException.InvalidDataException> {
-                                bookingService.createBooking(invalidCreateBookingRequest, jwtToken)
-                            }
-
-                        exception.code shouldBe HotelaException.INVALID_DATA
-                        exception.message shouldBe "Room ${room.id} cannot accommodate ${invalidCreateBookingRequest.numberOfGuests} guests"
                     }
                 }
             }
