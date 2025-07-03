@@ -1,3 +1,6 @@
 databaseChangeLog:
-    - includeAll:
-          path: db/changelog/sql
+  - property:
+      name: defaultSchemaName
+      value: hotela
+  - includeAll:
+      path: db/migrations
